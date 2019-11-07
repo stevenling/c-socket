@@ -9,7 +9,7 @@
 // -----------------------------
 int main(int argc, char* argv[])
 {
-	WSADATA wsaData;
+    WSADATA wsaData;
     SOCKET socketC, socketM;
     
     SOCKADDR_IN serverAddr;         // 服务器地址
@@ -26,21 +26,21 @@ int main(int argc, char* argv[])
     serverAddr.sin_port = htons(5678);
     serverAddr.sin_addr.s_addr = inet_addr("127.0.0.1");
     connect(socketC, (SOCKADDR*)&serverAddr, sizeof(serverAddr));
-	printf("\t\t\t这是客户端");
-	char recvbuf[BUF_SIZE];
+    printf("\t\t\t这是客户端");
+    char recvbuf[BUF_SIZE];
 
-	while(true)
-	{
-		printf("\n请输入要发送给服务端的值\n");
-		scanf("%s",sendbuf);
-		send(socketC, sendbuf,sizeof(sendbuf), 0);   // 发送数据给服务端
-		recv(socketC, recvbuf, sizeof(recvbuf), 0);  // 获取从服务器发来的值
-		printf("从服务器获取的\n%s\n", recvbuf);
-	}
+    while(true)
+    {
+	printf("\n请输入要发送给服务端的值\n");
+	scanf("%s",sendbuf);
+	send(socketC, sendbuf,sizeof(sendbuf), 0);   // 发送数据给服务端
+	recv(socketC, recvbuf, sizeof(recvbuf), 0);  // 获取从服务器发来的值
+	printf("从服务器获取的\n%s\n", recvbuf);
+    }
 
     closesocket(socketC);
     WSACleanup();
-	printf("请按回车键关闭");
-	getchar();
-	return 0;
+    printf("请按回车键关闭");
+    getchar();
+    return 0;
 }
