@@ -1,46 +1,46 @@
-//¿Í»§¶Ë·¢ËÍÊı¾İ
+// å®¢æˆ·ç«¯å‘é€æ•°æ®
 
 #include <stdio.h>
-
 #include <winsock2.h>
 
 #pragma comment(lib, "WS2_32.lib")
 #define BUF_SIZE 1024
+
+// -----------------------------
 int main(int argc, char* argv[])
 {
 	WSADATA wsaData;
-
-    SOCKADDR_IN serverAddr; //·şÎñÆ÷µØÖ·
-
     SOCKET socketC, socketM;
-
-    char sendbuf[BUF_SIZE] = "";   //·¢ËÍµÄÊı¾İ
+    
+    SOCKADDR_IN serverAddr;         // æœåŠ¡å™¨åœ°å€
+    char sendbuf[BUF_SIZE] = "";    // å‘é€çš„æ•°æ®
 
     if (WSAStartup(MAKEWORD(2, 2), &wsaData) != 0)
     {
         printf("WSAStartup failed!\n");
         return 1;
     }
+
     socketC = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
     serverAddr.sin_family = AF_INET;
     serverAddr.sin_port = htons(5678);
     serverAddr.sin_addr.s_addr = inet_addr("127.0.0.1");
     connect(socketC, (SOCKADDR*)&serverAddr, sizeof(serverAddr));
-	printf("\t\t\tÕâÊÇ¿Í»§¶Ë");
+	printf("\t\t\tè¿™æ˜¯å®¢æˆ·ç«¯");
 	char recvbuf[BUF_SIZE];
+
 	while(true)
 	{
-		printf("\nÇëÊäÈëÒª·¢ËÍ¸ø·şÎñ¶ËµÄÖµ\n");
+		printf("\nè¯·è¾“å…¥è¦å‘é€ç»™æœåŠ¡ç«¯çš„å€¼\n");
 		scanf("%s",sendbuf);
-		send(socketC, sendbuf,sizeof(sendbuf), 0);//·¢ËÍÊı¾İ¸ø·şÎñ¶Ë
-		recv(socketC, recvbuf, sizeof(recvbuf), 0);//»ñÈ¡´Ó·şÎñÆ÷·¢À´µÄÖµ
-		printf("´Ó·şÎñÆ÷»ñÈ¡µÄ\n%s\n", recvbuf);
-		//break;
-	//	}
+		send(socketC, sendbuf,sizeof(sendbuf), 0);   // å‘é€æ•°æ®ç»™æœåŠ¡ç«¯
+		recv(socketC, recvbuf, sizeof(recvbuf), 0);  // è·å–ä»æœåŠ¡å™¨å‘æ¥çš„å€¼
+		printf("ä»æœåŠ¡å™¨è·å–çš„\n%s\n", recvbuf);
 	}
+
     closesocket(socketC);
     WSACleanup();
-	printf("Çë°´»Ø³µ¼ü¹Ø±Õ");
+	printf("è¯·æŒ‰å›è½¦é”®å…³é—­");
 	getchar();
 	return 0;
 }
